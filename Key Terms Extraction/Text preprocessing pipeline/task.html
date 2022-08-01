@@ -1,0 +1,69 @@
+<html><body><h5 id="theory">Theory</h5>
+<p>We need to improve the results because they don't really look like keywords. There are dots, commas, articles, and conjunctions. To do this, we need to process the news text by removing punctuation marks and function words. We will calculate the frequency once again and output the five most frequent words.</p>
+<p>First, you should tokenize your text. After tokenization, you need to <strong>lemmatize</strong> the words using <code class="language-python">WordNetLemmatizer()</code> from the <code class="language-python">nltk</code> library. By default, the <code class="language-python">WordNetLemmatizer</code> lemmatizes only nouns. In this stage, you do NOT need to deal with the lemmatization of words of other parts of speech.</p>
+<p>Articles, conjunctions, and some other words belong to the <strong>stop-words</strong> group. These words do not have a particular meaning, but they are extremely common in text and can influence the result significantly. In the <code class="language-python">nltk</code> library, you can get a list of these words by using:</p>
+<pre><code class="language-python">stopwords.words('english')</code></pre>
+<p>You can import the stopwords in the following way:</p>
+<pre><code class="language-python">from nltk.corpus import stopwords</code></pre>
+<p>How can we get rid of punctuation? There are a lot of methods: from iterating through every character to using regular expressions. In this project, we suggest using the <code class="language-python">string</code> library. This line of code will enable you to get a list of punctuation marks:</p>
+<pre><code class="language-python">list(string.punctuation)</code></pre>
+<p>Once you have the summaries for each piece of news, you should print them as you did in the first stage.</p>
+<h5 id="description">Description</h5>
+<p>In this stage, you need to convert the text, tokenize it, perform lemmatization, and get rid of stop words and punctuation marks. You will then be able to see how the results have changed. Sometimes, depending on the type of tokenization, you need to rewrite the text in lowercase letters to get rid of the stop words in a proper way. You need to tokenize the texts as shown below.</p>
+<pre><code class="language-python">nltk.tokenize.word_tokenize(text.lower())</code></pre>
+<p>For each news item, find the five most common tokens and print them together with the title. Mind that the <code class="language-python">word_tokenize()</code> function might identify such contractions as <code class="language-python">'s</code> as separate tokens. if any, you do NOT need to remove such contractions from the lists of frequent tokens.</p>
+<p>If the frequencies for some tokens are the same, then sort them in descending order. For example, for the following dictionary, where the keys are the names of fruits, and the values of the frequency of their occurrence:</p>
+<pre><code class="language-python">{"apple": 5, "lemon": 6, "banana": 5, "grapefruit": 1, "pineapple": 5, "watermelon": 3, "melon": 4, "dragonfruit": 5}</code></pre>
+<p>After sorting, the dictionary should be</p>
+<pre><code class="language-python">{"lemon": 6, "pineapple": 5, "dragonfruit": 5, "banana": 5, "apple": 5, "melon": 4, "watermelon": 3, "grapefruit": 1}</code></pre>
+<p></p><div class="alert alert-warning">Mind the output formatting! You need to follow it so that the system can check the solution! Display the titles and keywords in the same order as the news items in the file.</div><p></p>
+<p>Take look at the attached <a href="https://stepik.org/media/attachments/lesson/395600/news.xml" rel="noopener noreferrer nofollow" target="_blank">news file</a>. Please use it in your project.</p>
+<p>We asked you to leave the contractions as they are for now. Working on this project, you're bound to stumble upon some weird lemmatization we also don't want you to do anything about. Let us explain ourselves. Although projects are primarily educational, they also serve as practice for real ones, so you could get a little taste of the reality of being a programmer. Unfortunately, in real life, the expected results are not always the same as the ones you actually get, especially when you use external tools and libraries. And often you just have to work with what you have. Though we asked you not to do anything about these imperfections for now, it doesn't mean that you cannot approach such cases creatively in your future projects. Another useful point is that sometimes there is no need to waste your time, energy, and performance of your program on things that will later eliminate themselves (you may suppose what such things are or find it out empirically). We hope you agree that such an approach makes sense if the final result is going to be just the one you need without any additional trouble on your part. For now, you just have to trust us and mark our word that those contractions will be naturally sorted out in the later stages of the project. If you feel the urge to do something about them, just be patient. Please keep this information in mind for the rest of the project, and maybe you will find it useful in your future work.</p>
+<h5 id="objectives">Objectives</h5>
+<p>Your program should:</p>
+<ol>
+<li>Read an XML file containing news stories and headlines.</li>
+<li>Extract the headers and the text.</li>
+<li>Tokenize each text.</li>
+<li>Lemmatize each word in the story.</li>
+<li>Get rid of punctuation and stopwords with the help of NLTK.</li>
+<li>For each news story, find the most frequent tokens.</li>
+<li>Print each story's headline and five most frequent tokens in descending order. Take a look at the sample below. Display the titles and keywords in the same order they are presented in the file.</li>
+</ol>
+<h5 id="example">Example</h5>
+<p><strong>Example 1: </strong><em>Input file structure</em></p>
+<pre><code class="language-xml">&lt;?xml version='1.0' encoding='UTF8'?&gt;
+&lt;data&gt;
+  &lt;corpus&gt;
+    &lt;news&gt;
+      &lt;value name="head"&gt;New Portuguese skull may be an early relative of Neandertals&lt;/value&gt;
+      &lt;value name="text"&gt;Half a million years ago, several different members of our genus, Homo, had spread throughout Europe and Asia, where some would eventually evolve into Neandertals.
+          But which ones has been the subject of intense debate.
+          A newly discovered partial skull is offering another clue to help solve the mystery of the ancestry of Neandertals.
+          Found in 2014 in the Gruta da Aroeira cave in central Portugal with ancient stone hand axes, the skull (3D reconstruction pictured) is firmly dated to 400,000 years old and an archaic member of our genus, according to a study published today in the Proceedings of the National Academy of Sciences.
+          The skull shows a new mix of features not seen before in fossil humans-it has traits that link it to Neandertals, such as a fused brow ridge, as well as some primitive traits that resemble other extinct fossils in Europe.
+          This new combination of features on a well-dated skull may help researchers sort out how different fossils in Europe are related to each other-and which ones eventually evolved into Neandertals.&lt;/value&gt;
+    &lt;/news&gt;
+    &lt;news&gt;
+      &lt;value name="head"&gt;Loneliness May Make Quitting Smoking Even Tougher&lt;/value&gt;
+      &lt;value name="text"&gt;Being lonely may make it harder to quit smoking, a new British study suggests.
+          Using genetic and survey data from hundreds of thousands of people, researchers found that loneliness makes it more likely that someone will smoke.
+          This type of analysis is called Mendelian randomization.
+          'This method has never been applied to this question before and so the results are novel, but also tentative,' said co-lead author Robyn Wootton, a senior research associate at the University of Bristol in the United Kingdom.
+          'We found evidence to suggest that loneliness leads to increased smoking, with people more likely to start smoking, to smoke more cigarettes and to be less likely to quit,' Wootton said in a university news release.
+          These data mesh with an observation that during the coronavirus pandemic, more British people are smoking.
+          Senior study author Jorien Treur said, 'Our finding that smoking may also lead to more loneliness is tentative, but it is in line with other recent studies that identified smoking as a risk factor for poor mental health.
+          A potential mechanism for this relationship is that nicotine from cigarette smoke interferes with neurotransmitters such as dopamine in the brain.'
+          Treur is a visiting research associate from Amsterdam UMC.
+          The researchers also looked for a connection between loneliness and drinking but found none.
+          Still, if loneliness causes people to smoke, it is important to alert smoking cessation services so they can add this factor as they help people to quit, the study authors said.
+          The report was published June 16 in the journal Addiction.&lt;/value&gt;
+    &lt;/news&gt;
+  &lt;/corpus&gt;
+&lt;/data&gt;</code></pre>
+<p><em>A sample of the output</em>:</p>
+<pre><code class="language-python">New Portuguese skull may be an early relative of Neandertals:
+skull neandertal fossil europe year 
+
+Loneliness May Make Quitting Smoking Even Tougher:
+smoking people loneliness study smoke</code></pre></body></html>

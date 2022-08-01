@@ -1,0 +1,69 @@
+<html><body><h5 id="theory">Theory</h5>
+<p>Hooray! The output from the last stage looks so much better! We can still improve the results, though: adverbs and adjectives don't always reflect the essence of the text. Nouns are very useful with this. In this stage, we will improve the result by using <strong>part-of-speech tagging</strong> <strong>(a POS-tag)</strong> to mark nouns as keywords. </p>
+<h5 id="description">Description</h5>
+<p>The task is similar to the previous ones: tokenize, lemmatize, and eliminate meaningless words. In addition to removing punctuation and stop words, remove all the non-noun words. You can use <code class="language-python">averaged_perceptron_tagger</code> for this. You need to load it first:</p>
+<pre><code class="language-python">nltk.download('averaged_perceptron_tagger')</code></pre>
+<p>Let's look at a simple example. To find out a POS-tag of the word <code class="language-python">cat</code>, we need to write the following line of code:</p>
+<pre><code class="language-python">nltk.pos_tag(['cat'])[0][1]</code></pre>
+<p>This gives the following: </p>
+<pre><code class="language-python">"NN"</code></pre>
+<p>This tag denotes a noun. You can see a list of other tags using the command:</p>
+<pre><code class="language-python">nltk.help.upenn_tagset()</code></pre>
+<p>In our project, we need the <code class="language-python">"NN"</code> tag <strong>only</strong>.</p>
+<p>Sometimes, depending on the type of tokenization, you need to rewrite the text in lowercase letters to get rid of the stopwords in a proper way. You need to tokenize the texts as shown below.</p>
+<pre><code class="language-python">nltk.tokenize.word_tokenize(text.lower())</code></pre>
+<p> If the frequencies for some tokens are the same, then sort them in descending order. For example, for the following dictionary, where the keys are the names of fruits, and the values of the frequency of their occurrence:</p>
+<pre><code class="language-python">{"apple": 5, "lemon": 6, "banana": 5, "grapefruit": 1, "pineapple": 5, "watermelon": 3, "melon": 4, "dragonfruit": 5}</code></pre>
+<p>After sorting, the dictionary should be</p>
+<pre><code class="language-python">{"lemon": 6, "pineapple": 5, "dragonfruit": 5, "banana": 5, "apple": 5, "melon": 4, "watermelon": 3, "grapefruit": 1}</code></pre>
+<p></p><div class="alert alert-warning">Attention! We ask you to apply the POS-tag for each word, and not for the entire text of the news!</div><p></p>
+<p>Take a look at the attached <a href="https://stepik.org/media/attachments/lesson/395600/news.xml" rel="noopener noreferrer nofollow" target="_blank">news file</a>. Please, use it in this stage.</p>
+<h5 id="objectives">Objectives</h5>
+<p>In this stage, your program should:</p>
+<ol>
+<li>Read an XML-file containing news stories and headlines.</li>
+<li>Extract the headers and the text.</li>
+<li>Tokenize each text.</li>
+<li>Lemmatize each word in the story.</li>
+<li>Get rid of punctuation and the stopwords provided by NLTK.</li>
+<li>For each news story, find the most frequent nouns.</li>
+<li>Print each story's headline and the five most frequent nouns in descending order. Take a look at the sample below. Display the titles and keywords in the same order they are presented in the file.</li>
+</ol>
+<h5 id="examples">Examples</h5>
+<p> <strong>Example 1:</strong> <em>Input file structure</em></p>
+<pre><code class="language-xml">&lt;?xml version='1.0' encoding='UTF8'?&gt;
+&lt;data&gt;
+  &lt;corpus&gt;
+    &lt;news&gt;
+      &lt;value name="head"&gt;New Portuguese skull may be an early relative of Neandertals&lt;/value&gt;
+      &lt;value name="text"&gt;Half a million years ago, several different members of our genus, Homo, had spread throughout Europe and Asia, where some would eventually evolve into Neandertals.
+          But which ones has been the subject of intense debate.
+          A newly discovered partial skull is offering another clue to help solve the mystery of the ancestry of Neandertals.
+          Found in 2014 in the Gruta da Aroeira cave in central Portugal with ancient stone hand axes, the skull (3D reconstruction pictured) is firmly dated to 400,000 years old and an archaic member of our genus, according to a study published today in the Proceedings of the National Academy of Sciences.
+          The skull shows a new mix of features not seen before in fossil humans-it has traits that link it to Neandertals, such as a fused brow ridge, as well as some primitive traits that resemble other extinct fossils in Europe.
+          This new combination of features on a well-dated skull may help researchers sort out how different fossils in Europe are related to each other-and which ones eventually evolved into Neandertals.&lt;/value&gt;
+    &lt;/news&gt;
+    &lt;news&gt;
+      &lt;value name="head"&gt;Loneliness May Make Quitting Smoking Even Tougher&lt;/value&gt;
+      &lt;value name="text"&gt;Being lonely may make it harder to quit smoking, a new British study suggests.
+          Using genetic and survey data from hundreds of thousands of people, researchers found that loneliness makes it more likely that someone will smoke.
+          This type of analysis is called Mendelian randomization.
+          'This method has never been applied to this question before and so the results are novel, but also tentative,' said co-lead author Robyn Wootton, a senior research associate at the University of Bristol in the United Kingdom.
+          'We found evidence to suggest that loneliness leads to increased smoking, with people more likely to start smoking, to smoke more cigarettes and to be less likely to quit,' Wootton said in a university news release.
+          These data mesh with an observation that during the coronavirus pandemic, more British people are smoking.
+          Senior study author Jorien Treur said, 'Our finding that smoking may also lead to more loneliness is tentative, but it is in line with other recent studies that identified smoking as a risk factor for poor mental health.
+          A potential mechanism for this relationship is that nicotine from cigarette smoke interferes with neurotransmitters such as dopamine in the brain.'
+          Treur is a visiting research associate from Amsterdam UMC.
+          The researchers also looked for a connection between loneliness and drinking but found none.
+          Still, if loneliness causes people to smoke, it is important to alert smoking cessation services so they can add this factor as they help people to quit, the study authors said.
+          The report was published June 16 in the journal Addiction.&lt;/value&gt;
+    &lt;/news&gt;
+  &lt;/corpus&gt;
+&lt;/data&gt;</code></pre>
+<p><em>An example of the output:</em></p>
+<pre><code class="language-python">New Portuguese skull may be an early relative of Neandertals:
+skull fossil europe year trait 
+
+Loneliness May Make Quitting Smoking Even Tougher:
+smoking loneliness study smoke quit
+</code></pre></body></html>

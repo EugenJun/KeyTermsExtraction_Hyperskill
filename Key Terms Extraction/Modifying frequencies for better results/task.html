@@ -1,0 +1,65 @@
+<html><body><h5 id="theory">Theory</h5>
+<p>In this stage, we will take a closer look at the <strong>TF-IDF</strong> approach. It is used to calculate how important a word is for a document in a text collection. Search engines use this measure to score and rank the documents according to a user's query. It is also frequently used for text classification and text summarization, fundamental NLP tasks. The method is not computationally expensive and yields excellent results for such tasks.</p>
+<p>The technique is based on two assumptions:</p>
+<ol>
+<li>Frequent words have more weight in the document.</li>
+<li>The smaller the number of documents that contain the word, the more important the word is for the document that contains it.</li>
+</ol>
+<p>For this project, we need to calculate the TF-IDF for every word in <strong>all</strong> news stories! To make the task of this stage more clear, let's remind ourselves that TF-IDF is used for a collection of documents. In our case, this collection consists of the news which means that each news article should be treated as a separate document. Each one should be tokenized, lemmatized, cleared of anything but nouns. This way you can get the final collection of documents you'll be able to apply TF-IDF to.</p>
+<p>Use <code class="language-python">TfidfVectorizer</code> from <code class="language-python">sklearn</code> to solve this task. You may also find the function <code class="language-python">toarray()</code> useful. It converts a sparse matrix that <code class="language-python">sklearn</code> uses to an ordinary n-dimensional array, so, using indexation, you may access the terms and their scores in a more familiar way. Check out the <a href="https://machinelearningmastery.com/prepare-text-data-machine-learning-scikit-learn/" rel="noopener noreferrer nofollow" target="_blank">Machine Learning Master tutorial</a> on how to encode the text data for machine learning.</p>
+<h5 id="description">Description</h5>
+<p>In this stage, you will get familiar with some of the theories behind this method and work with <code class="language-python">sklearn</code>, one of the most popular Python machine learning libraries. Mind that sometimes, depending on the type of tokenization, you need to rewrite the text in lowercase letters to get rid of the stop words in a proper manner.</p>
+<p>Take a look at the attached <a href="https://stepik.org/media/attachments/lesson/395600/news.xml" rel="noopener noreferrer nofollow" target="_blank">news file</a>. Please use it in your project.</p>
+<p>[ALERT-warning]Remember that you only need to select nouns, i.e. words with the tag "NN". Thus, the word "say" doesn't fit, because its tag is "VB".</p>
+<pre><code class="language-python">nltk.pos_tag(['say'])[0][1]  # VB</code></pre>
+<p>[/ALERT]</p>
+<h5 id="objectives">Objectives</h5>
+<p>In this stage, your program should:</p>
+<ol>
+<li>Read an XML-file containing stories and headlines.</li>
+<li>Extract the headers and the text.</li>
+<li>Tokenize <em><strong>each text</strong></em>.</li>
+<li>Lemmatize each word in <em><strong>each story</strong></em>.</li>
+<li>Get rid of punctuation, stopwords, and non-nouns with the help of NLTK.</li>
+<li>Count the TF-IDF metric for each word in <em><strong>all</strong></em> stories, i.e. apply it to the whole collection of news documents.</li>
+<li>Pick the five best scoring words.</li>
+<li>Print each story's headline and the five most frequent words in descending order. Take a look at the sample output below. Display the titles and keywords in the same order they are presented in the file.</li>
+</ol>
+<p></p><div class="alert alert-primary"> If you have two words with equal TF-IDF scores, for example, «day», 0.375 and «cloud», 0.375, they should be sorted in reverse order, i.e. «day» should come first. </div><p></p>
+<h5 id="examples">Examples</h5>
+<p> <strong>Example 1:</strong> <em>Input file structure</em></p>
+<pre><code class="language-xml">&lt;?xml version='1.0' encoding='UTF8'?&gt;
+&lt;data&gt;
+  &lt;corpus&gt;
+    &lt;news&gt;
+      &lt;value name="head"&gt;New Portuguese skull may be an early relative of Neandertals&lt;/value&gt;
+      &lt;value name="text"&gt;Half a million years ago, several different members of our genus, Homo, had spread throughout Europe and Asia, where some would eventually evolve into Neandertals.
+          But which ones has been the subject of intense debate.
+          A newly discovered partial skull is offering another clue to help solve the mystery of the ancestry of Neandertals.
+          Found in 2014 in the Gruta da Aroeira cave in central Portugal with ancient stone hand axes, the skull (3D reconstruction pictured) is firmly dated to 400,000 years old and an archaic member of our genus, according to a study published today in the Proceedings of the National Academy of Sciences.
+          The skull shows a new mix of features not seen before in fossil humans-it has traits that link it to Neandertals, such as a fused brow ridge, as well as some primitive traits that resemble other extinct fossils in Europe.
+          This new combination of features on a well-dated skull may help researchers sort out how different fossils in Europe are related to each other-and which ones eventually evolved into Neandertals.&lt;/value&gt;
+    &lt;/news&gt;
+    &lt;news&gt;
+      &lt;value name="head"&gt;Loneliness May Make Quitting Smoking Even Tougher&lt;/value&gt;
+      &lt;value name="text"&gt;Being lonely may make it harder to quit smoking, a new British study suggests.
+          Using genetic and survey data from hundreds of thousands of people, researchers found that loneliness makes it more likely that someone will smoke.
+          This type of analysis is called Mendelian randomization.
+          'This method has never been applied to this question before and so the results are novel, but also tentative,' said co-lead author Robyn Wootton, a senior research associate at the University of Bristol in the United Kingdom.
+          'We found evidence to suggest that loneliness leads to increased smoking, with people more likely to start smoking, to smoke more cigarettes and to be less likely to quit,' Wootton said in a university news release.
+          These data mesh with an observation that during the coronavirus pandemic, more British people are smoking.
+          Senior study author Jorien Treur said, 'Our finding that smoking may also lead to more loneliness is tentative, but it is in line with other recent studies that identified smoking as a risk factor for poor mental health.
+          A potential mechanism for this relationship is that nicotine from cigarette smoke interferes with neurotransmitters such as dopamine in the brain.'
+          Treur is a visiting research associate from Amsterdam UMC.
+          The researchers also looked for a connection between loneliness and drinking but found none.
+          Still, if loneliness causes people to smoke, it is important to alert smoking cessation services so they can add this factor as they help people to quit, the study authors said.
+          The report was published June 16 in the journal Addiction.&lt;/value&gt;
+    &lt;/news&gt;
+  &lt;/corpus&gt;
+&lt;/data&gt;</code></pre>
+<p><em>An example of the output:</em></p>
+<pre><code class="language-python">New Portuguese skull may be an early relative of Neandertals:
+skull fossil europe trait genus
+
+Loneliness May Make Quitting Smoking Even Tougher:
+smoking loneliness smoke quit lead </code></pre></body></html>

@@ -1,0 +1,62 @@
+<html><body><h5 id="theory">Theory</h5>
+<p><strong>Key term extraction</strong>, also known as <strong>keyword extraction</strong>, is an important <strong>Natural Language Processing (NLP)</strong> task that makes it possible to automatically identify terms that best describe the subject of a document.</p>
+<p>Key term extraction is the core of the content-based advertising systems used by search engines. This approach is used to find the relevant keywords on a webpage and then show the ads based on those keywords. The extraction quality is a cornerstone for these tasks. A 10% improvement in quality leads to an almost 10% increase in click-through rate, directly increasing the advertisement performance.</p>
+<p>What words can describe the subject of a piece of text accurately? It's safe to assume that they are the most frequent words, but it can be a little more complicated than that! </p>
+<h5 id="description">Description</h5>
+<p>In this stage, you will be working with an XML file containing news stories and headlines. You need to find the most frequent words in each news story. The news text must be divided into tokens, use tokenization tools implemented in the <code class="language-python">nltk</code> library. </p>
+<p>Tokenization is an essential step for NLP. There are lots of ways to do it, from using regular expressions to machine learning. You need to use the <code class="language-python">word_tokenize()</code><em> </em>function from<em> </em><code class="language-python">nltk</code><em> </em>to successfully complete this task. It returns a list of tokens (including words and punctuation) and divides a word  <code class="language-python">cat's</code><em> </em>into two parts: <code class="language-python">cat</code><em> </em>and <code class="language-python">'s</code><em> </em>(do not remove the second token).</p>
+<p>Sometimes, depending on the type of tokenization, you need to rewrite the text in lowercase letters. You need to tokenize the texts as shown below.</p>
+<pre><code class="language-python">nltk.tokenize.word_tokenize(text.lower())</code></pre>
+<p>Find the five most common tokens for each news story and print them together with the story's title.</p>
+<p>If the frequencies for some tokens are the same, then sort them by their names in descending order. For example, for the following dictionary, where the keys are the names of fruits, and the values of the frequency are their occurrence:</p>
+<pre><code class="language-python">{"apple": 5, "lemon": 6, "banana": 5, "grapefruit": 1, "pineapple": 5, "watermelon": 3, "melon": 4, "dragonfruit": 5}</code></pre>
+<p>After sorting, the dictionary should look the following way:</p>
+<pre><code class="language-python">{"lemon": 6, "pineapple": 5, "dragonfruit": 5, "banana": 5, "apple": 5, "melon": 4, "watermelon": 3, "grapefruit": 1}</code></pre>
+<p></p><div class="alert alert-warning">Mind the output formatting! You need to follow it so that the system can check the solution! Display the titles and keywords in the same order as the news items in the file.</div><p></p>
+<p>You can take a look at the <a href="https://stepik.org/media/attachments/lesson/395600/news.xml" rel="noopener noreferrer nofollow" target="_blank">news file</a> to see what you will be working with.</p>
+<h5 id="objectives">Objectives</h5>
+<p>Your program should:</p>
+<ol>
+<li>Read an XML file containing news stories and headlines.</li>
+<li>Extract the headers and the text.</li>
+<li>Tokenize the texts.</li>
+<li>For each story, find the most frequent tokens that appear in it.</li>
+<li>Print the headline of each news story and the five most frequent tokens in descending order. Take a look at a sample below. Also, display the titles and keywords in the same order they are presented in the file.</li>
+</ol>
+<h5 id="example">Example</h5>
+<p><strong>Example 1: </strong><em>an example of the input</em></p>
+<pre><code class="language-xml">&lt;?xml version='1.0' encoding='UTF8'?&gt;
+&lt;data&gt;
+  &lt;corpus&gt;
+    &lt;news&gt;
+      &lt;value name="head"&gt;New Portuguese skull may be an early relative of Neandertals&lt;/value&gt;
+      &lt;value name="text"&gt;Half a million years ago, several different members of our genus, Homo, had spread throughout Europe and Asia, where some would eventually evolve into Neandertals.
+          But which ones has been the subject of intense debate.
+          A newly discovered partial skull is offering another clue to help solve the mystery of the ancestry of Neandertals.
+          Found in 2014 in the Gruta da Aroeira cave in central Portugal with ancient stone hand axes, the skull (3D reconstruction pictured) is firmly dated to 400,000 years old and an archaic member of our genus, according to a study published today in the Proceedings of the National Academy of Sciences.
+          The skull shows a new mix of features not seen before in fossil humans-it has traits that link it to Neandertals, such as a fused brow ridge, as well as some primitive traits that resemble other extinct fossils in Europe.
+          This new combination of features on a well-dated skull may help researchers sort out how different fossils in Europe are related to each other-and which ones eventually evolved into Neandertals.&lt;/value&gt;
+    &lt;/news&gt;
+    &lt;news&gt;
+      &lt;value name="head"&gt;Loneliness May Make Quitting Smoking Even Tougher&lt;/value&gt;
+      &lt;value name="text"&gt;Being lonely may make it harder to quit smoking, a new British study suggests.
+          Using genetic and survey data from hundreds of thousands of people, researchers found that loneliness makes it more likely that someone will smoke.
+          This type of analysis is called Mendelian randomization.
+          'This method has never been applied to this question before and so the results are novel, but also tentative,' said co-lead author Robyn Wootton, a senior research associate at the University of Bristol in the United Kingdom.
+          'We found evidence to suggest that loneliness leads to increased smoking, with people more likely to start smoking, to smoke more cigarettes and to be less likely to quit,' Wootton said in a university news release.
+          These data mesh with an observation that during the coronavirus pandemic, more British people are smoking.
+          Senior study author Jorien Treur said, 'Our finding that smoking may also lead to more loneliness is tentative, but it is in line with other recent studies that identified smoking as a risk factor for poor mental health.
+          A potential mechanism for this relationship is that nicotine from cigarette smoke interferes with neurotransmitters such as dopamine in the brain.'
+          Treur is a visiting research associate from Amsterdam UMC.
+          The researchers also looked for a connection between loneliness and drinking but found none.
+          Still, if loneliness causes people to smoke, it is important to alert smoking cessation services so they can add this factor as they help people to quit, the study authors said.
+          The report was published June 16 in the journal Addiction.&lt;/value&gt;
+    &lt;/news&gt;
+  &lt;/corpus&gt;
+&lt;/data&gt;</code></pre>
+<p><em>An example of the output:</em></p>
+<pre><code class="language-no-highlight">New Portuguese skull may be an early relative of Neandertals:
+of the , in a
+
+Loneliness May Make Quitting Smoking Even Tougher:
+, to . the that </code></pre></body></html>

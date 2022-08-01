@@ -1,0 +1,7 @@
+type: framework
+content:
+- Most frequent words
+- Text preprocessing pipeline
+- Nouns are keywords
+- Modifying frequencies for better results
+current_task: 3
