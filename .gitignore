@@ -1,0 +1,14 @@
+# course config files
+*.yaml
+
+# gradle
+.gradle/
+build
+
+
+# idea config
+.idea
+
+# old stages
+/Key Terms Extraction/*
+!/Key Terms Extraction/task/
